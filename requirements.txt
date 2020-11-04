@@ -1,0 +1,4 @@
+Alfred-Workflow
+todoist-python==8.0.0
+requests
+click
