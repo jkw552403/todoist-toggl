@@ -3,6 +3,12 @@ from datetime import datetime
 
 import todoist
 
+from toggle_client import TogglClient
+
+################
+# Todoist utilities
+################
+
 TODOIST_STATE_NAME = "todoist_state"
 TODOIST_STATE_MAX_AGE = 600
 
@@ -66,3 +72,35 @@ def add_task_item(wf, sync_client, task):
         valid=True,
         arg="--track {}".format(task["id"]),
     )
+
+
+################
+# Toggl utilities
+################
+
+TOGGL_PROJECT_MAP_MAX_AGE = 86400
+TOGGL_PROJECT_MAP_NAME = "toggl_project_map"
+
+
+def create_toggl_client(api_token):
+    return TogglClient(api_token)
+
+
+def get_toggl_project_map(wf, toggl_client):
+    """
+    This function returns a dictionary mapping project names back to IDs.
+    """
+    if (
+        wf.cached_data(TOGGL_PROJECT_MAP_NAME) is None
+        or wf.cached_data_age(TOGGL_PROJECT_MAP_NAME) > TOGGL_PROJECT_MAP_MAX_AGE
+    ):
+        wf.logger.debug("Get project data from Toggl API...")
+        projects = toggl_client.get_projects()
+        project_map = {}
+        for project in projects:
+            project_map[project["name"]] = project["id"]
+        wf.cache_data(TOGGL_PROJECT_MAP_NAME, project_map)
+    else:
+        wf.logger.debug("Use cached project data")
+        project_map = wf.cached_data(TOGGL_PROJECT_MAP_NAME)
+    return project_map
