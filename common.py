@@ -2,8 +2,7 @@
 from datetime import datetime
 
 import todoist
-
-from toggle_client import TogglClient
+from toggl_client import TogglClient
 
 ################
 # Todoist utilities
