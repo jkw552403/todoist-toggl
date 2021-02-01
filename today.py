@@ -3,14 +3,15 @@ import sys
 from datetime import datetime, timedelta
 
 import click
+
 from common import (
     add_task_item,
     create_todoist_sync_client,
+    create_workflow,
     get_todoist_state,
     parse_todoist_date,
 )
 from setting import TODOIST_API_TOKEN
-from workflow import Workflow3
 
 log = None
 wf = None
@@ -72,6 +73,6 @@ def main(wf):
 
 
 if __name__ == u"__main__":
-    wf = Workflow3()
+    wf = create_workflow()
     log = wf.logger
     sys.exit(wf.run(main))

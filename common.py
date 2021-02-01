@@ -2,7 +2,35 @@
 from datetime import datetime
 
 import todoist
+from workflow import ICON_INFO, Workflow3
+
 from toggl_client import TogglClient
+
+__version__ = "0.1.0"
+
+################
+# Alfred utilities
+################
+
+
+def create_workflow():
+    wf = Workflow3(
+        update_settings={
+            "github_slug": "jkw552403/todoist-toggl",
+            "version": __version__,
+        }
+    )
+    # Copied from https://www.deanishe.net/alfred-workflow/guide/update.html
+    if wf.update_available:
+        # Add a notification to top of Script Filter results
+        wf.add_item(
+            "New version available",
+            "Action this item to install the update",
+            autocomplete="workflow:update",
+            icon=ICON_INFO,
+        )
+    return wf
+
 
 ################
 # Todoist utilities

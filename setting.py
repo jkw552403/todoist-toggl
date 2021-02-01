@@ -2,8 +2,9 @@
 import sys
 
 import click
-from workflow import Workflow3
 from workflow.notify import notify
+
+from common import create_workflow
 
 log = None
 wf = None
@@ -63,6 +64,6 @@ def main(wf):
 
 
 if __name__ == u"__main__":
-    wf = Workflow3()
+    wf = create_workflow()
     log = wf.logger
     sys.exit(wf.run(main))

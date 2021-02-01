@@ -2,10 +2,10 @@
 import sys
 
 import click
-from common import create_toggl_client
-from setting import TOGGL_API_TOKEN
-from workflow import Workflow3
 from workflow.notify import notify
+
+from common import create_toggl_client, create_workflow
+from setting import TOGGL_API_TOKEN
 
 log = None
 wf = None
@@ -50,6 +50,6 @@ def main(wf):
 
 
 if __name__ == u"__main__":
-    wf = Workflow3()
+    wf = create_workflow()
     log = wf.logger
     sys.exit(wf.run(main))

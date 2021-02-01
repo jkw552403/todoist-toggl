@@ -2,15 +2,16 @@
 import sys
 
 import click
+from workflow.notify import notify
+
 from common import (
     create_todoist_sync_client,
     create_toggl_client,
+    create_workflow,
     get_todoist_state,
     get_toggl_project_map,
 )
 from setting import TODOIST_API_TOKEN, TOGGL_API_TOKEN
-from workflow import Workflow3
-from workflow.notify import notify
 
 log = None
 wf = None
@@ -62,6 +63,6 @@ def main(wf):
 
 
 if __name__ == u"__main__":
-    wf = Workflow3()
+    wf = create_workflow()
     log = wf.logger
     sys.exit(wf.run(main))
