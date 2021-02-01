@@ -2,7 +2,7 @@ import os
 import unittest
 from unittest import TestCase
 
-from toggle_client import TogglClient
+from toggl_client import TogglClient
 
 
 class TestTogglClient(TestCase):
