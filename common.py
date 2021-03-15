@@ -51,7 +51,7 @@ def parse_todoist_date(date_string):
     if len(date_string) == 10:
         return datetime.strptime(date_string, "%Y-%m-%d")
     else:
-        return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S")
+        return datetime.strptime(date_string.strip("Z"), "%Y-%m-%dT%H:%M:%S")
 
 
 def get_todoist_state(wf, sync_client):
